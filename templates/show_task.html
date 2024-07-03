@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row d-flex flex-wrap justify-content-center px-5 pt-5">
+        {% for i in data %}
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div class="card mx-2" style="border: solid 2px wheat; background-color: rgb(255, 251, 244);">
+                <div class="card-body" style="text-align: center;">
+                    <h6 class="card-subtitle mb-4 text-body-secondary mt-2">Task ID : {{i.task_id}}</h6>
+                    <h6 class="card-subtitle mb-3 text-body-success">Target Date: {{i.task_date}}</h6>
+                    <h5 class="card-title text-danger">Task Title : {{i.task_title}}</h5>
+                    <p class="card-text text-success" style="font-weight: 500;">Description: {{i.task_description}}</p>
+                    <p class="card-text text-primary", style="position: relative; left: -80px; font-weight: 500;">Categories:</p>
+                    <p style="display: flex; margin: 10px; justify-content: space-evenly; flex-wrap: wrap;">
+                        {% for cat in i.category.all %}
+                        <button style="margin: 5px; background-color: orange; color: white; font-weight: bold; padding: 6px; padding-right: 8px; padding-left: 8px; text-transform: uppercase; border: solid 2px darkorange;">{{cat}}</button>
+                        {% endfor %}
+                    </p>
+                    {% if i.is_completed == True %}
+                        <h1 class="text-success">Task Completed</h1>
+                    {% else %}
+                        <a href="{% url 'edit_post' i.task_id %}" class="btn btn-danger">Edit</a>
+                        <a href="{% url 'delete_post' i.task_id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="row card" style="width: 18rem; display: flex; justify-content: center; flex-wrap: wrap;">
+
+    </div>
+
+{% endblock %}
